@@ -1,7 +1,6 @@
 package com.example.junit5sample
 
 import com.google.common.truth.Truth
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -9,12 +8,14 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.EnumSource
 import org.junit.jupiter.params.provider.ValueSource
 
+/**
+ * https://junit.org/junit5/docs/current/user-guide/
+ * JUnit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage
+ *
+ * - Test framework on JVM and next version of Junit4
+ * - Show the description more detail than Junit4
+ */
 class Junit5Test {
-
-    @BeforeEach
-    fun setup() {
-        //println("setup")
-    }
 
     @Test
     @DisplayName("you can modify test name freely")
@@ -26,11 +27,12 @@ class Junit5Test {
         strings = [
             "1",
             "2",
-            "3"
+            "3",
         ]
     )
     @ParameterizedTest(name = "first param is {0}")
-    fun test2(first: String) {
+    //short, byte, int, long, float, double, char, java.lang.String, java.lang.Class
+    fun test2(first: Int) {
         println("first : $first")
     }
 
@@ -61,9 +63,9 @@ class Junit5Test {
     @CsvSource(
         delimiter = '=',
         value = [
-            "1+2=3",
-            "7+3=10",
-            "10+20=30"
+            "1+2=3", // "1+2" , "3"
+            "7+3=10", // "7+3" , "10"
+            "10+20=30" // "10+20", "30"
         ]
     )
     @ParameterizedTest(name = "{0} result is {1}")
@@ -74,7 +76,7 @@ class Junit5Test {
     }
 
     @EnumSource(Operator::class)
-    @ParameterizedTest(name = "{0}")
+    @ParameterizedTest(name = "show {0} using EnumSource")
     fun test6(rawOperator: Operator) {
         println("show sing : ${rawOperator.sign}")
     }
